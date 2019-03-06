@@ -16,23 +16,39 @@ public class Board extends JPanel implements ActionListener {
         timer.start();
     }
     public void init(){
-        sprites.add(new Rocket(100,100,25,40,Color.pink));
+        sprites.clear();
+        sprites.add(new Rocket(50,50,25,40,Color.pink));
     }
     public void paintComponent(Graphics g){
         super.paintComponent(g);
         ((Graphics2D) g).setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         sprites.get(0).paint(g);
-        g.fillRect(0,400,getWidth(),getHeight()-400);
+        g.setColor(Color.black);
+        g.fillRect(0,500,getWidth(),getHeight()-500);
+    }
+
+    public void explode(){
+        getGraphics().setColor(Color.yellow);
+        getGraphics().fillOval(sprites.get(0).getX(),sprites.get(0).getY(), 100,100 );
     }
 
     public void actionPerformed(ActionEvent e) {
-        turn();
         thrust();
         sprites.get(0).move();
-        if(sprites.get(0).getY() >= 400 - sprites.get(0).getHeight()/2){
-            sprites.get(0).setDx(0);
-            sprites.get(0).setDy(0);
-        }
+        if(sprites.get(0).getY() >= 500 - sprites.get(0).getHeight()/2){
+            if(sprites.get(0).getDx() + sprites.get(0).getDy() >= 5 ||
+                    Math.abs(sprites.get(0).getTheta())%360 <= 330 &&
+                            Math.abs(sprites.get(0).getTheta())%360 >= 30){
+                System.out.println("explode");
+                explode();
+            } else {
+                sprites.get(0).setDx(0);
+                sprites.get(0).setDy(0);
+                sprites.get(0).setY(500 - sprites.get(0).getHeight() / 2);
+            }
+        } else turn();
+        System.out.println(sprites.get(0).getTheta());
+        explode();
         repaint();
     }
     public void turn(){
@@ -46,7 +62,8 @@ public class Board extends JPanel implements ActionListener {
         if(w){
             sprites.get(0).setDx(sprites.get(0).getDx()+0.2*Math.sin(Math.toRadians(sprites.get(0).getTheta())));
             sprites.get(0).setDy(sprites.get(0).getDy()-0.2*Math.cos(Math.toRadians(sprites.get(0).getTheta())));
-        }
+            sprites.get(0).setThrusting(true);
+        } else sprites.get(0).setThrusting(false);
     }
 
     public void setW(boolean w){

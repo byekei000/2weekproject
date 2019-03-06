@@ -5,6 +5,7 @@ public class Sprite {
     private final double G = 0.098;
     private double x,y,dx=0,dy=0;
     private Color color;
+    private boolean thrusting = false;
     public Sprite(int x, int y, int width, int height, Color color){
         this.x = x;
         this.y = y ;
@@ -90,5 +91,13 @@ public class Sprite {
 
     public void setTheta(int theta) {
         this.theta = theta;
+    }
+
+    public void setThrusting(boolean thrusting) {
+        this.thrusting = thrusting;
+    }
+
+    public boolean isThrusting() {
+        return thrusting;
     }
 }
