@@ -25,6 +25,8 @@ public class Board extends JPanel implements ActionListener {
         sprites.get(0).paint(g);
         g.setColor(Color.black);
         g.fillRect(0,500,getWidth(),getHeight()-500);
+        g.setColor(Color.blue);
+        g.fillRect(500,490,50,10);
     }
 
     public void explode(){
@@ -35,20 +37,21 @@ public class Board extends JPanel implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         thrust();
         sprites.get(0).move();
-        if(sprites.get(0).getY() >= 500 - sprites.get(0).getHeight()/2){
+        if(sprites.get(0).getBounds().intersects(new Rectangle(500,490,50,10))){
+            sprites.get(0).setDx(0);
+            sprites.get(0).setDy(0);
+            sprites.get(0).setY(490 - sprites.get(0).getHeight() / 2);
+        } else if(sprites.get(0).getY() >= 500 - sprites.get(0).getHeight()/2){
             if(sprites.get(0).getDx() + sprites.get(0).getDy() >= 5 ||
                     Math.abs(sprites.get(0).getTheta())%360 <= 330 &&
                             Math.abs(sprites.get(0).getTheta())%360 >= 30){
                 System.out.println("explode");
-                explode();
-            } else {
-                sprites.get(0).setDx(0);
-                sprites.get(0).setDy(0);
-                sprites.get(0).setY(500 - sprites.get(0).getHeight() / 2);
             }
+            sprites.get(0).setDx(0);
+            sprites.get(0).setDy(0);
+            sprites.get(0).setY(500 - sprites.get(0).getHeight() / 2);
         } else turn();
         System.out.println(sprites.get(0).getTheta());
-        explode();
         repaint();
     }
     public void turn(){

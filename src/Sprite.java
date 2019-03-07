@@ -2,7 +2,7 @@ import java.awt.*;
 
 public class Sprite {
     private int width,height,theta = 0;
-    private final double G = 0.098;
+    private double G = 0.04;
     private double x,y,dx=0,dy=0;
     private Color color;
     private boolean thrusting = false;
@@ -99,5 +99,9 @@ public class Sprite {
 
     public boolean isThrusting() {
         return thrusting;
+    }
+
+    public void setG(double g) {
+        G = g;
     }
 }
