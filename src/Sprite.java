@@ -2,13 +2,14 @@ import java.awt.*;
 
 public class Sprite {
     private int width,height,theta = 0;
-    private double G = 0.04;
-    private double x,y,dx=0,dy=0;
+    private double G = 0.01;
+    private double terminalVelocity = 150*G;
+    private double x,y,y2,dx=0,dy=0;
     private Color color;
     private boolean thrusting = false;
     public Sprite(int x, int y, int width, int height, Color color){
         this.x = x;
-        this.y = y ;
+        this.y = y;
         this.width = width;
         this.height = height;
         this.color = color;
@@ -19,9 +20,12 @@ public class Sprite {
     public void move(){
         x += dx;
         y += dy;
-        dy += G;
+        if(dy <= terminalVelocity){
+            dy += G;
+        }
     }
     public void paint(Graphics g){
+        g.setColor(color);
         g.fillRect(getX(),getY(),width,height);
     }
 
@@ -39,6 +43,14 @@ public class Sprite {
 
     public void setY(int y) {
         this.y = y;
+    }
+
+    public int getY2() {
+        return (int)y2;
+    }
+
+    public void setY2(double y2) {
+        this.y2 = y2;
     }
 
     public int getWidth() {
