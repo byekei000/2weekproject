@@ -2,9 +2,9 @@ import java.awt.*;
 
 public class Sprite {
     private int width,height,theta = 0;
-    private double G = 0.01;
+    private double G = 0.098;
     private double terminalVelocity = 150*G;
-    private double x,y,y2,dx=0,dy=0;
+    private double x,y,dx=0,dy=0;
     private Color color;
     private boolean thrusting = false;
     public Sprite(int x, int y, int width, int height, Color color){
@@ -43,14 +43,6 @@ public class Sprite {
 
     public void setY(int y) {
         this.y = y;
-    }
-
-    public int getY2() {
-        return (int)y2;
-    }
-
-    public void setY2(double y2) {
-        this.y2 = y2;
     }
 
     public int getWidth() {

@@ -9,6 +9,8 @@ public class Board extends JPanel implements ActionListener {
     private Timer timer;
     private boolean w,a,d,space;
     private List<Sprite> sprites = new ArrayList<>();
+    private List<Terrain> terrain = new ArrayList<>();
+    private int level = 1;
     public Board(){
         setPreferredSize(new Dimension(800,600));
         setBackground(Color.darkGray);
@@ -18,13 +20,13 @@ public class Board extends JPanel implements ActionListener {
     public void init(){
         sprites.clear();
         sprites.add(new Rocket(50,50,25,40,Color.pink));
-        generateTerrain();
+        generateTerrain(1);
     }
-    public void generateTerrain(){
-        for(int i = 0; i < 20; i++){
-            int newY = (int)(Math.random()*100+400);
-            sprites.add(new Landing(i*40,newY,20));
-            sprites.add(new Terrain(i*40+40,newY 20));
+    public void generateTerrain(int lev){
+        if(lev == 1){
+            terrain.add(new Terrain(new Polygon(new int[]{0,getWidth(),getWidth(),0},new int[]{400,500,getHeight(),getHeight()},4), Color.black));
+//            terrain.add(new Landing());
+//            terrain.add(new Terrain());
         }
     }
     public void paintComponent(Graphics g){
@@ -32,6 +34,9 @@ public class Board extends JPanel implements ActionListener {
         ((Graphics2D) g).setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         for(int i = 0; i < sprites.size(); i++){
             sprites.get(i).paint(g);
+        }
+        for(int i = 0; i < terrain.size();i++){
+            terrain.get(i).paint(g);
         }
         g.setColor(Color.black);
         g.fillRect(0,500,getWidth(),getHeight()-500);
@@ -43,7 +48,9 @@ public class Board extends JPanel implements ActionListener {
         g.setColor(Color.orange);
         g.fillOval(sprites.get(0).getX()-sprites.get(0).getWidth(),sprites.get(0).getY()-sprites.get(0).getHeight(), 100,100 );
         try{
-            Thread.sleep(5000);
+            timer.stop();
+            Thread.sleep(500);
+            timer.start();
         } catch(InterruptedException e){
 
         }
@@ -78,8 +85,8 @@ public class Board extends JPanel implements ActionListener {
     }
     public void thrust(){
         if(w){
-            sprites.get(0).setDx(sprites.get(0).getDx()+0.05*Math.sin(Math.toRadians(sprites.get(0).getTheta())));
-            sprites.get(0).setDy(sprites.get(0).getDy()-0.05*Math.cos(Math.toRadians(sprites.get(0).getTheta())));
+            sprites.get(0).setDx(sprites.get(0).getDx()+0.2*Math.sin(Math.toRadians(sprites.get(0).getTheta())));
+            sprites.get(0).setDy(sprites.get(0).getDy()-0.2*Math.cos(Math.toRadians(sprites.get(0).getTheta())));
             sprites.get(0).setThrusting(true);
         } else sprites.get(0).setThrusting(false);
     }

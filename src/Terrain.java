@@ -1,17 +1,17 @@
 import java.awt.*;
 
-public class Terrain extends Sprite{
-    public Terrain(int x, int y,int y2, int width){
-        super(x,y,width,100, Color.black);
-        setY2(y2);
+public class Terrain{
+    private Polygon polygon;
+    private Color color;
+    public Terrain(Polygon polygon, Color color){
+        this.polygon = polygon;
+        this.color = color;
     }
-
-    public void paint(Graphics g) {
-        g.setColor(Color.black);
-        g.fillPolygon(new int[]{getX(),getX()+20,getX()+20,getX()},new int[]{getY(),getY2(),600,600},4);
+    public void paint(Graphics g){
+        g.setColor(color);
+        g.fillPolygon(polygon);
     }
-
-    public Polygon getBounds(){
-        return new Polygon();
+    public Polygon getBounds() {
+        return polygon;
     }
 }
