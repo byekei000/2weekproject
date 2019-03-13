@@ -1,4 +1,5 @@
 import java.awt.*;
+import java.awt.geom.Area;
 
 public class Sprite {
     private int width,height,theta = 0;
@@ -13,6 +14,7 @@ public class Sprite {
         this.width = width;
         this.height = height;
         this.color = color;
+
     }
     public Rectangle getBounds(){
         return new Rectangle(getX(),getY(),width,height);

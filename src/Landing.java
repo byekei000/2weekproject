@@ -1,7 +1,8 @@
 import java.awt.*;
+import java.awt.geom.Line2D;
 
 public class Landing extends Terrain{
-    public Landing(int x, int y, int width, Color color, Board board){
-        super(new Polygon(new int[]{x,x+width,x+width,x}, new int[]{y,y,board.getHeight(),board.getHeight()}, 4), color);
+    public Landing(Line2D line, Color color, Board board){
+        super(line, color);
     }
 }
