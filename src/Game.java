@@ -8,7 +8,7 @@ public class Game extends JFrame {
         setVisible(true);
         setResizable(false);
         setDefaultCloseOperation(3);
-        Board board  = new Board();
+        Board board  = new Board(this);
         add(board);
         pack();
         setLocationRelativeTo(null);
