@@ -1,5 +1,4 @@
 import java.awt.*;
-import java.awt.geom.Area;
 
 public class Sprite {
     private int width,height,theta = 0;
